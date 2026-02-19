@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Dashboard</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<h1>Admin Dashboard</h1>
+
+<h3>Update Fees</h3>
+
+<label>Class 1-5 Fees</label>
+<input type="number" id="fee1">
+
+<label>Class 6-10 Fees</label>
+<input type="number" id="fee2">
+
+<br><br>
+<button onclick="saveFees()">Save Fees</button>
+
+<script>
+function saveFees(){
+let f1=document.getElementById("fee1").value;
+let f2=document.getElementById("fee2").value;
+
+localStorage.setItem("fee1",f1);
+localStorage.setItem("fee2",f2);
+
+alert("Fees Updated");
+}
+</script>
+
+</body>
+</html>
+<h3>Add Student Dues</h3>
+
+<input type="text" id="sName" placeholder="Student Name">
+<input type="number" id="sClass" placeholder="Class">
+<input type="number" id="sFee" placeholder="Fees">
+<input type="number" id="sDue" placeholder="Due Date">
+
+<br><br>
+<button onclick="addStudent()">Add Student</button>
+
+<script>
+function addStudent(){
+    let name=document.getElementById("sName").value;
+    let cls=document.getElementById("sClass").value;
+    let fee=document.getElementById("sFee").value;
+    let due=document.getElementById("sDue").value;
+
+    let students=JSON.parse(localStorage.getItem("students") || "[]");
+    students.push({name:name,class:cls,fee:fee,due:due});
+    localStorage.setItem("students",JSON.stringify(students));
+
+    alert("Student Added Successfully");
+    
+    // Clear input fields
+    document.getElementById("sName").value="";
+    document.getElementById("sClass").value="";
+    document.getElementById("sFee").value="";
+    document.getElementById("sDue").value="";
+}
+</script>
+<h3>Upload Gallery Image</h3>
+<input type="text" id="imgName" placeholder="Image File Name (e.g., school4.jpg)">
+<button onclick="addGallery()">Add to Gallery</button>
+
+<script>
+function addGallery(){
+    let name = document.getElementById("imgName").value;
+    let gallery = JSON.parse(localStorage.getItem("gallery") || "[]");
+    gallery.push(name);
+    localStorage.setItem("gallery", JSON.stringify(gallery));
+    alert("Image Added to Gallery (Remember: actual file should be in images folder)");
+    document.getElementById("imgName").value="";
+}
+</script>
